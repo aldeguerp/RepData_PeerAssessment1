@@ -1,6 +1,6 @@
 ---
 title: "Reproducible Research: Peer Assessment 1"
-output: 
+output: ￼
   html_document:
     keep_md: true
 ---
@@ -101,4 +101,16 @@ steps_wend <- tapply(weekend$steps,weekend$interval,FUN = mean)
 plot (steps_work, type="l",x = names(steps_work),xlab="Intervals",ylab="steps/interval",col="red")
 lines (steps_wend, type="l",x = names(steps_wend),xlab="Intervals",ylab="steps/interval",col = "green")
 legend('topright', c("workday","weekend"), lty=1, col=c('red', 'green'), bty='n', cex=.75)
+```
+
+With facets and days
+````{r}
+data_factor <- group_by(data_filled,wday,interval) %>% summarize (mean=mean(steps))
+qplot(x = interval,y=mean,data=data_factor, facets=.~wday,geom = "line")
+```
+
+With facets and wordday/weekend
+````{r}
+data_factor <- group_by(data_filled,typeDay,interval) %>% summarize (mean=mean(steps))
+qplot(x = interval,y=mean,data=data_factor, facets=.~typeDay,geom = "line",ylab = "mean_steps")
 ```

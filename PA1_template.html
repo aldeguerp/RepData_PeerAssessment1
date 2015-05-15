@@ -164,24 +164,24 @@ hist(sum_steps_new)</code></pre>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>
 <p>Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.</p>
-<pre class="r"><code>data_filled$wday &lt;- weekdays(as.Date(data_filled$date))
-data_filled &lt;-mutate (data_filled,typeDay=ifelse(wday==&quot;Sunday&quot; | wday==&quot;Saturday&quot;,&quot;Weekend&quot;,&quot;Workday&quot;))
+<pre class="r"><code>data_filled$wday &lt;- factor(weekdays(as.Date(data_filled$date)))
+data_filled &lt;-mutate (data_filled,typeDay=factor(ifelse(wday==&quot;Sunday&quot; | wday==&quot;Saturday&quot;,&quot;Weekend&quot;,&quot;Workday&quot;)))
 summary(data_filled)</code></pre>
-<pre><code>##      steps                date          interval          wday          
-##  Min.   :  0.00   2012-10-01:  288   Min.   :   0.0   Length:17568      
-##  1st Qu.:  0.00   2012-10-02:  288   1st Qu.: 588.8   Class :character  
-##  Median :  0.00   2012-10-03:  288   Median :1177.5   Mode  :character  
-##  Mean   : 37.38   2012-10-04:  288   Mean   :1177.5                     
-##  3rd Qu.: 27.00   2012-10-05:  288   3rd Qu.:1766.2                     
-##  Max.   :806.00   2012-10-06:  288   Max.   :2355.0                     
-##                   (Other)   :15840                                      
-##    typeDay         
-##  Length:17568      
-##  Class :character  
-##  Mode  :character  
-##                    
-##                    
-##                    
+<pre><code>##      steps                date          interval             wday     
+##  Min.   :  0.00   2012-10-01:  288   Min.   :   0.0   Friday   :2592  
+##  1st Qu.:  0.00   2012-10-02:  288   1st Qu.: 588.8   Monday   :2592  
+##  Median :  0.00   2012-10-03:  288   Median :1177.5   Saturday :2304  
+##  Mean   : 37.38   2012-10-04:  288   Mean   :1177.5   Sunday   :2304  
+##  3rd Qu.: 27.00   2012-10-05:  288   3rd Qu.:1766.2   Thursday :2592  
+##  Max.   :806.00   2012-10-06:  288   Max.   :2355.0   Tuesday  :2592  
+##                   (Other)   :15840                    Wednesday:2592  
+##     typeDay     
+##  Weekend: 4608  
+##  Workday:12960  
+##                 
+##                 
+##                 
+##                 
 ## </code></pre>
 <p>Make a panel plot containing a time series plot (i.e. type = “l”) of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).</p>
 <pre class="r"><code>weekend &lt;- subset(data_filled,typeDay==&quot;Weekend&quot;)

@@ -86,8 +86,8 @@ hist(sum_steps_new)
 
 Create a new factor variable in the dataset with two levels -- "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
 ```{r}
-data_filled$wday <- weekdays(as.Date(data_filled$date))
-data_filled <-mutate (data_filled,typeDay=ifelse(wday=="Sunday" | wday=="Saturday","Weekend","Workday"))
+data_filled$wday <- factor(weekdays(as.Date(data_filled$date)))
+data_filled <-mutate (data_filled,typeDay=factor(ifelse(wday=="Sunday" | wday=="Saturday","Weekend","Workday")))
 summary(data_filled)
 ```
 
